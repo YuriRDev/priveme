@@ -1,9 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import COLOR from '../../colors';
 
 // import { Container } from './styles';
 
-const Options: React.FC = () => {
+interface OptionInterface {
+    selected?: number;
+}
+
+const Options: React.FC<OptionInterface> = ({ selected = 0 }) => {
     return (
         <div
             style={{
@@ -26,51 +31,59 @@ const Options: React.FC = () => {
                     fontSize: 14
                 }}
             >
+                <Link to={'/'} style={{
+                    textDecoration: 'none'
+                }}>
 
-                <div
-                    style={{
-                        color: COLOR.Primary,
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        position: 'relative',
-                    }}
-                >
-                    MEUS GRUPOS
                     <div
                         style={{
-                            backgroundColor: COLOR.Primary,
-                            height: 2,
-                            position: 'absolute',
-                            zIndex: 10,
-                            bottom: -13,
-                            width: '100%',
-                            borderRadius: 100
+                            color: selected == 0 ? COLOR.Primary : COLOR.Dark,
+                            fontWeight: selected == 0 ? 600 : 500,
+                            cursor: 'pointer',
+                            position: 'relative',
                         }}
-                    />
-                </div>
-                
-                <div
-                    style={{
-                        color: COLOR.Dark,
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        position: 'relative',
-                        marginLeft: 32
-                    }}
-                >
-                    ATIVIDADE
+                    >
+                        MEUS GRUPOS
+                        <div
+                            style={{
+                                backgroundColor: COLOR.Primary,
+                                height: selected == 0 ? 2 : 0,
+                                position: 'absolute',
+                                zIndex: 10,
+                                bottom: -13,
+                                width: '100%',
+                                borderRadius: 100
+                            }}
+                        />
+                    </div>
+
+                </Link>
+                <Link to={'/atividade'} style={{
+                    textDecoration: 'none'
+                }}>
                     <div
                         style={{
-                            backgroundColor: COLOR.Dark,
-                            height: 0,
-                            position: 'absolute',
-                            zIndex: 10,
-                            bottom: -13,
-                            width: '100%',
-                            borderRadius: 100
+                            color: selected == 1 ? COLOR.Primary : COLOR.Dark,
+                            fontWeight: selected == 1 ? 600 : 500,
+                            cursor: 'pointer',
+                            position: 'relative',
+                            marginLeft: 32
                         }}
-                    />
-                </div>
+                    >
+                        ATIVIDADE
+                        <div
+                            style={{
+                                backgroundColor: COLOR.Primary,
+                                height: selected == 1 ? 2 : 0,
+                                position: 'absolute',
+                                zIndex: 10,
+                                bottom: -13,
+                                width: '100%',
+                                borderRadius: 100
+                            }}
+                        />
+                    </div>
+                </Link>
 
             </div>
         </div>

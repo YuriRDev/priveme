@@ -58,7 +58,7 @@ export const LineText = styled.text`
 
 export const SocialDiv = styled.div`
     width: 100%;
-    display:f lex;
+    display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 18px;

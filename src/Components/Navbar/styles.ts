@@ -92,7 +92,7 @@ export const MenuHeader = styled.div`
 export const MenuHeaderTop = styled.div`
     width: 100%;
     background-color: ${COLOR.Background};
-    padding: 24px 16px;
+    padding: 24px 0px 0px 0px;
     border-radius: 5px 5px 0px 0px;
 `
 
@@ -104,6 +104,7 @@ export const NameContainer = styled.div`
     font-weight: 700;
     color: ${COLOR.Primary};
     margin-bottom: 10px;
+    padding: 0px 18px;
     
     @media(max-width: 800px) {
         margin-bottom: 32px;
@@ -131,7 +132,7 @@ export const UserIcon = styled.div`
 export const MenuHeaderList = styled.div`
     width: 100%;
     backgroud-color: ${COLOR.Light};
-    padding: 24px 16px;
+    padding: 18px 0px;
 `
 
 export const MenuAjuda = styled.div`
@@ -142,7 +143,13 @@ export const MenuAjuda = styled.div`
     align-items: center;
     justify-content: flex-start;
     font-size: 14px;
+    padding: 6px 16px;
+    transition: .2s;
+    cursor: pointer;
 
+    &:hover{
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 
  `
 
@@ -151,6 +158,7 @@ export const MenuHeaderLine = styled.div`
     width: 100%;
     margin-top: 16px;
     border-radius: 100px;
+    opacity: .3;
  `
 
 export const SairConta = styled.div`
@@ -160,6 +168,7 @@ export const SairConta = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding: 4px 16px;
     font-size: 14px;
  `
 
@@ -170,7 +179,16 @@ export const HeaderOption = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    font-size: 14px;
+    padding: 6px 16px;
+    transition: .2s;
+    cursor: pointer;
+
+    &:hover{
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+
+
  `
 
 export const MenuBottom = styled.div`

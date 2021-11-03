@@ -6,6 +6,8 @@ import { BiSearch, BiEqualizer, BiGroup, BiHelpCircle, BiLogOut, BiWorld, BiChev
 import { Container, LogoText, NotLoggedContainer, SairConta, LanguageOption, MenuBottom, HeaderOption, MenuHeaderLine, MenuAjuda, MenuHeaderList, UserIcon, LoggedContainer, NameContainer, MenuContainer, MenuHeaderTop, MenuHeader } from './styles';
 import { Link } from 'react-router-dom';
 
+
+
 const Navbar: React.FC = () => {
     const isLogged = true;
 
@@ -57,7 +59,11 @@ const Navbar: React.FC = () => {
                             Nome da pessoa
                         </NameContainer>
 
-                        <HeaderOption>
+                        <HeaderOption
+                            style={{
+                                marginBottom: -12
+                            }}
+                        >
                             <BiEqualizer style={{ marginRight: 8 }} size={22} />
                             ATIVIDADE
                         </HeaderOption>
@@ -102,6 +108,20 @@ const Navbar: React.FC = () => {
                 </MenuBottom>
 
             </MenuContainer>
+
+            <div
+                style={{
+                    position: 'absolute',
+                    height: '100vh',
+                    width: '100vw',
+                    backgroundColor: COLOR.Dark,
+                    opacity: menuOpen ? .2 : 0,
+                    top: 0,
+                    right: 0,
+                    transition: '.2s',
+                    visibility: menuOpen ? 'visible' : 'hidden'
+                }}
+            />
 
         </Container>
     );
