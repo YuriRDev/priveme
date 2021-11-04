@@ -8,7 +8,8 @@ const COLOR = {
     Background: '#FFFBFB',
     Inactive: '#9D9D9D',
     Light: '#fff',
-    Orange: '#E3740E'
+    Orange: '#E3740E',
+    Green: '#26BF00'
 }
 
 export default COLOR;

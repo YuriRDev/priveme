@@ -15,7 +15,7 @@ export const InsideContainer = styled.div`
 export const BodyContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: column;
     margin-top: 48px;
     
