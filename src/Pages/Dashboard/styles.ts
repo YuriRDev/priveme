@@ -207,8 +207,8 @@ export const GraphicImg = styled.img`
     opacity: .3;
     position: absolute;
     top: 64px;
-    left: 200px;
-    z-index: 0;
+    left: 100px;
+    z-index: 1;
     transition: .2s;
 
     @media(max-width: 800px) {
@@ -227,6 +227,7 @@ export const FolderImg = styled.img`
     bottom: 0px;
     transition: .2s;
     right: 100px;
+    z-index: 1;
 
     @media(max-width: 800px) {
         height: 200px;

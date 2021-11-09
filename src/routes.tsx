@@ -10,6 +10,7 @@ import Login from './Pages/Login';
 import Registro from './Pages/Registro';
 import Senha from './Pages/Senha';
 import Verify from './Pages/Verify';
+import Withdrawn from './Pages/Withdrawn';
 
 const Routes: React.FC = () => {
     return (
@@ -18,6 +19,7 @@ const Routes: React.FC = () => {
                 <Route path="/" exact component={Dashboard} />
                 <Route path="/verify" exact component={Verify} />
                 <Route path="/atividade" exact component={Atividade} />
+                <Route path="/withdrawn" exact component={Withdrawn} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Registro} />
                 <Route path="/forgotpassword" component={Senha} />

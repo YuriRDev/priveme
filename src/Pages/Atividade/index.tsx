@@ -5,36 +5,51 @@ import Navbar from '../../Components/Navbar';
 import Options from '../../Components/Options';
 import { Select, MenuItem } from '@material-ui/core';
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-import { Container, InsideContainer, BodyContainer } from './styles';
+import { Container, FaturasList, InsideContainer, BodyContainer, FaturaOpcoes, FaturaContainer, GraphicContainer, GraphicData, ChartContainer } from './styles';
 import Fatura from '../../Components/Fatura';
+
+import loading from '../../Assets/loading';
+
+import Lottie from 'react-lottie';
 
 const Atividade: React.FC = () => {
 
-  const [faturaOption, setFaturaOption] = useState(0)
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loading,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
 
+  };
+
+  const [faturaOption, setFaturaOption] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const formatter = (value: any) => `R$ ${value}`;
   const data = [
     {
-      usuarios: 3,
+      valor: 23,
     },
     {
-      usuarios: 6,
+      valor: 26,
     },
     {
-      usuarios: 3,
+      valor: 32,
     },
     {
-      usuarios: 5,
+      valor: 25,
     },
     {
-      usuarios: 4,
+      valor: 24,
     },
     {
-      usuarios: 3,
+      valor: 23,
     },
     {
-      usuarios: 6,
+      valor: 26,
     },
   ];
 
@@ -47,16 +62,7 @@ const Atividade: React.FC = () => {
           selected={1}
         />
         <BodyContainer>
-          <div
-            style={{
-              backgroundColor: COLOR.Light,
-              boxShadow: '0px 3px 4px 1px rgba(0, 0, 0, 0.1)',
-              borderRadius: 3,
-              padding: 24,
-              width: 800
-
-            }}
-          >
+          <GraphicContainer>
             {/** HEADER */}
             <div>
               <Select
@@ -120,15 +126,7 @@ const Atividade: React.FC = () => {
 
 
             {/** valor bruto */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                marginTop: 24
-              }}
-            >
+            <GraphicData>
               <text
                 style={{
                   fontSize: 14
@@ -140,47 +138,58 @@ const Atividade: React.FC = () => {
                   fontWeight: 500
                 }}
               >R$ 0,00</text>
-            </div>
+            </GraphicData>
 
             {/** grafico */}
+            {!isLoading && (
 
-            <LineChart
-              width={500}
-              height={300}
-              data={data}
-              style={{
-                top: 32
-              }}
-              margin={{
-                top: 5,
-                right: 30,
-                left: -32,
-                bottom: 5,
-              }}
-            >
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="usuarios" stroke={COLOR.Primary} activeDot={{ r: 8 }} />
-            </LineChart>
+              <ChartContainer>
+                <ResponsiveContainer width={'100%'} height={'100%'}>
+                  <LineChart
+                    data={data}
+                    style={{
+                      top: 32
+                    }}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      bottom: 5,
+                    }}
+                  >
+                    <XAxis dataKey="name" />
+                    <YAxis tickFormatter={formatter} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="valor" stroke={COLOR.Primary} activeDot={{ r: 8 }} />
+                  </LineChart>
 
-          </div>
+                </ResponsiveContainer>
+              </ChartContainer>
+            )}
+            {isLoading && (
+              <div
+                style={{
+                  opacity: .5,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start',
+                  width: '100%'
+                }}
+              >
+                <Lottie
+                  options={defaultOptions}
+                  height={120}
+                  width={120}
+                  isClickToPauseDisabled={true}
+                />
+              </div>
+            )}
+
+          </GraphicContainer>
 
 
           {/** FATURAS */}
 
-          <div
-            style={{
-              backgroundColor: COLOR.Light,
-              boxShadow: '0px 3px 4px 1px rgba(0, 0, 0, 0.1)',
-              borderRadius: 3,
-              padding: 24,
-              width: 800,
-              marginTop: 48,
-              marginBottom: 128
-
-            }}
-          >
+          <FaturaContainer>
             {/** HEADER */}
             <text
               style={{
@@ -191,17 +200,7 @@ const Atividade: React.FC = () => {
 
 
             {/** OPCOES */}
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                marginTop: 16,
-                borderBottom: `solid 1px ${COLOR.Inactive}`,
-                paddingBottom: 12
-              }}
-            >
+            <FaturaOpcoes>
               <text
                 style={{
                   marginRight: 16,
@@ -235,31 +234,38 @@ const Atividade: React.FC = () => {
                   setFaturaOption(2)
                 }}
               >Todos</text>
-            </div>
+            </FaturaOpcoes>
 
 
             {/** LISTA DE FATURA */}
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0px 24px',
-                paddingTop: 32,
-                flexDirection: 'column',
-              }}
-            >
-              <Fatura />
-              <Fatura />
-              <Fatura />
-              <Fatura />
-              <Fatura />
-              <Fatura />
-            </div>
+            {!isLoading && (
+              <FaturasList>
+                <Fatura />
+                <Fatura />
+                <Fatura />
+                <Fatura />
+                <Fatura />
+                <Fatura />
+              </FaturasList>
+            )}
+
+            {isLoading && (
+              <FaturasList
+                style={{
+                  opacity: .5
+                }}
+              >
+                <Lottie
+                  options={defaultOptions}
+                  height={120}
+                  width={120}
+                  isClickToPauseDisabled={true}
+                />
+              </FaturasList>
+            )}
 
 
-          </div>
+          </FaturaContainer>
 
         </BodyContainer>
       </InsideContainer>

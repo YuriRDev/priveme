@@ -17,7 +17,7 @@ const Options: React.FC<OptionInterface> = ({ selected = 0 }) => {
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
                 height: 48,
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
             }}
         >
             {/** OPTION LIST! */}
@@ -28,7 +28,8 @@ const Options: React.FC<OptionInterface> = ({ selected = 0 }) => {
                     justifyContent: 'center',
                     flexDirection: 'row',
                     position: 'relative',
-                    fontSize: 14
+                    fontSize: 14,
+                    zIndex: 10
                 }}
             >
                 <Link to={'/'} style={{
@@ -67,7 +68,8 @@ const Options: React.FC<OptionInterface> = ({ selected = 0 }) => {
                             fontWeight: selected == 1 ? 600 : 500,
                             cursor: 'pointer',
                             position: 'relative',
-                            marginLeft: 32
+                            marginLeft: 32,
+                            marginRight: 32
                         }}
                     >
                         ATIVIDADE
@@ -83,6 +85,34 @@ const Options: React.FC<OptionInterface> = ({ selected = 0 }) => {
                             }}
                         />
                     </div>
+                </Link>
+
+                <Link to={'/withdrawn'} style={{
+                    textDecoration: 'none'
+                }}>
+
+                    <div
+                        style={{
+                            color: selected == 2 ? COLOR.Primary : COLOR.Dark,
+                            fontWeight: selected == 2 ? 600 : 500,
+                            cursor: 'pointer',
+                            position: 'relative',
+                        }}
+                    >
+                        PAGAMENTO
+                        <div
+                            style={{
+                                backgroundColor: COLOR.Primary,
+                                height: selected == 2 ? 2 : 0,
+                                position: 'absolute',
+                                zIndex: 10,
+                                bottom: -13,
+                                width: '100%',
+                                borderRadius: 100
+                            }}
+                        />
+                    </div>
+
                 </Link>
 
             </div>

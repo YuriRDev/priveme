@@ -59,7 +59,6 @@ export const GraphicData = styled.div`
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    margin-top: 24px;
 `
 
 export const FaturaContainer = styled.div`
@@ -95,11 +94,41 @@ export const FaturasList = styled.div`
     align-items: center
     justify-content: center;
     padding: 0px 24px;
-    padding-top: 32px;
+    margin-top: 16px;
+    padding-top: 16px;
     flex-direction: column;
+    border-top: solid 1px #E2E2E2;
 
     @media(max-width: 800px) {
         padding: 0px;
         padding-top: 16px;
     }
+`
+
+export const Retirar = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${COLOR.Primary};
+    border-radius: 3px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px 31px;
+    color: ${COLOR.Light};
+    font-size: 16px;
+    cursor: pointer;
+    transition: .2s;
+    margin-top: 16px;
+
+    @media(max-width: 800px) {
+        font-size: 14px;
+    }
+
+    &:hover{
+        box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.36);
+        }
+    
+        &:active{
+            opacity: .8;
+        }
+
 `

@@ -5,12 +5,12 @@ import { BiUser } from 'react-icons/bi'
 
 import { Container, Header } from './styles';
 
-const Fatura: React.FC = () => {
+const Pagamento: React.FC = () => {
     return (
         <Container>
             {/** HEADER */}
             <Header>
-                <text>Nome do grupo</text>
+                <text>R$ 250,00</text>
                 <text>04/12/2021 08:45</text>
             </Header>
 
@@ -35,12 +35,8 @@ const Fatura: React.FC = () => {
                         justifyContent: 'center'
                     }}
                 >
-                    <BiUser size={16} style={{
-                        marginRight: 4
-                    }} />
-                    +55 (31) 9 9959-3050
+                    Cartão terminado em 4141
                 </div>
-                <text>R$ 24,00</text>
             </div>
 
             {/** TRACADO     */}
@@ -59,4 +55,4 @@ const Fatura: React.FC = () => {
     );
 }
 
-export default Fatura;
+export default Pagamento;

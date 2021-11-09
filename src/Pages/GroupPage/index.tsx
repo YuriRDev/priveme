@@ -7,6 +7,8 @@ import Options from '../../Components/Options';
 import { BiChevronLeft, BiUserPlus, BiSearch, BiX, BiPhone, BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { SiWhatsapp } from 'react-icons/si'
 
+import Lottie from 'react-lottie';
+
 import groupContainer from '../../Assets/groupContainer.svg'
 import clock from '../../Assets/clock.png'
 import bot from '../../Assets/bot.png'
@@ -17,6 +19,8 @@ import cone from '../../Assets/cone.png'
 import Input from '../../Components/Input';
 import User from '../../Components/User';
 import Activity from '../../Components/Activity';
+
+import loading from '../../Assets/loading';
 
 import { Container, InfoLine, InsideContainer, ModalContainer, DeleteGroupImg, DeleteGroupMessage, DeleteButton, CancelDelete, DeleteGroupBottom, AddUserText, DeleteGroupBody, DeleteGroupHeader, DeleteGroupModal, AddUserCancelar, AddUserImg, AddUserConfirm, AddUserBottom, AddUserBody, AddUserModal, UserCount, VerificarButton, BotImg, Line, DeleteGroup, DeleteGroupContainer, BotStatusTitle, BotStatusText, BotTexts, BotHeader, BotContainer, AtividadesListText, AtividadeDescription, AtividadesImg, NotVerifiedBottom, AtividadesHeader, AtividadeList, UltimasAtividades, RightContainer, GroupName, ErrorMsgVerified, NotVerifiedHeader, NotVerifiedImg, NotVerifiedBody, GroupNotVerified, TextsContainer, AddUserButton, UserSearch, UserList, GroupVerified, GroupVoltar, GroupVoltarHidden, PageWidth, AllContainer, Group, ImgGroup } from './styles';
 
@@ -29,6 +33,18 @@ const GroupPage: React.FC = () => {
   const [isGroupVerified, setIsGroupVerified] = useState(true)
 
   const [isInfoOn, setIsInfoOn] = useState(true)
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loading,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+
+  };
 
   return (
     <Container>
@@ -255,39 +271,55 @@ const GroupPage: React.FC = () => {
                     />
                     <AtividadesListText>
                       <text>Ultimas atividades</text>
-                      <AtividadeDescription>Ultimas 5 atividades</AtividadeDescription>
+                      <AtividadeDescription>Atividades recentes</AtividadeDescription>
                     </AtividadesListText>
 
                   </AtividadesHeader>
 
-                  <AtividadeList>
-                    <Activity
-                      message={'Pagamento confirmado'}
-                      minutes={5}
-                      phone={'+55 31 9 9959-3050'}
-                    />
-                    <Activity
-                      message={'Usuario removido'}
-                      minutes={7}
-                      phone={'+55 31 9 9959-3050'}
-                    />
-                    <Activity
-                      message={'Usuario adicionado'}
-                      minutes={12}
-                      phone={'+55 31 9 9959-3050'}
-                    />
-                    <Activity
-                      message={'Pagamento confirmado'}
-                      minutes={14}
-                      phone={'+55 31 9 9959-3050'}
-                    />
-                    <Activity
-                      message={'Pagamento confirmado'}
-                      minutes={22}
-                      phone={'+55 31 9 9959-3050'}
-                    />
+                  {!isLoading && (
+                    <AtividadeList>
+                      <Activity
+                        message={'Pagamento confirmado'}
+                        minutes={5}
+                        phone={'+55 31 9 9959-3050'}
+                      />
+                      <Activity
+                        message={'Usuario removido'}
+                        minutes={7}
+                        phone={'+55 31 9 9959-3050'}
+                      />
+                      <Activity
+                        message={'Usuario adicionado'}
+                        minutes={12}
+                        phone={'+55 31 9 9959-3050'}
+                      />
+                      <Activity
+                        message={'Pagamento confirmado'}
+                        minutes={14}
+                        phone={'+55 31 9 9959-3050'}
+                      />
+                      <Activity
+                        message={'Pagamento confirmado'}
+                        minutes={22}
+                        phone={'+55 31 9 9959-3050'}
+                      />
 
-                  </AtividadeList>
+                    </AtividadeList>
+                  )}
+                  {isLoading && (
+                    <AtividadeList
+                      style={{
+                        opacity: .5
+                      }}
+                    >
+                      <Lottie
+                        options={defaultOptions}
+                        height={80}
+                        width={80}
+                        isClickToPauseDisabled={true}
+                      />
+                    </AtividadeList>
+                  )}
 
                 </UltimasAtividades>
 
@@ -300,32 +332,56 @@ const GroupPage: React.FC = () => {
                     />
                     <BotTexts>
                       <BotStatusTitle>Status do bot</BotStatusTitle>
-                      <BotStatusText>Ativo</BotStatusText>
-                      <BotStatusTitle>Informações do grupo</BotStatusTitle>
-                      <BotStatusText
-                        style={{
-                          color: COLOR.Inactive,
-                        }}
-                      >R$ 240.00 / Mes <br />
-                        Nome do grupo zap zap kkkkk
-                      </BotStatusText>
+                      {isLoading && (
+                        <div
+                          style={{
+                            opacity: .5
+                          }}
+                        >
+                          <Lottie
+                            options={defaultOptions}
+                            height={60}
+                            width={60}
+                            isClickToPauseDisabled={true}
+                          />
+                        </div>
+                      )}
+                      {!isLoading && (
+                        <BotStatusText>Ativo</BotStatusText>
+                      )}
+                      {!isLoading && (
+                        <BotStatusTitle>Informações do grupo</BotStatusTitle>
+                      )}
+                      {!isLoading && (
+                        <BotStatusText
+                          style={{
+                            color: COLOR.Inactive,
+                          }}
+                        >R$ 240.00 / Mes <br />
+                          Nome do grupo zap zap kkkkk
+                        </BotStatusText>
+                      )}
                     </BotTexts>
 
                   </BotHeader>
-
                   {/** LINHA */}
-                  <Line />
-
-                  <DeleteGroupContainer>
-                    <DeleteGroup
-                      onClick={() => {
-                        setDeleteGroup(true)
-                      }}
-                    >
-                      <BiX size={24} />
-                      Deletar grupo
-                    </DeleteGroup>
-                  </DeleteGroupContainer>
+                  <Line
+                    style={{
+                      opacity: isLoading ? 0 : 1
+                    }}
+                  />
+                  {!isLoading && (
+                    <DeleteGroupContainer>
+                      <DeleteGroup
+                        onClick={() => {
+                          setDeleteGroup(true)
+                        }}
+                      >
+                        <BiX size={24} />
+                        Deletar grupo
+                      </DeleteGroup>
+                    </DeleteGroupContainer>
+                  )}
 
 
                 </BotContainer>
