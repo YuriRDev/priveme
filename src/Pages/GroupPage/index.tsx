@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import COLOR from '../../colors';
 
 import Navbar from '../../Components/Navbar';
@@ -21,6 +21,7 @@ import User from '../../Components/User';
 import Activity from '../../Components/Activity';
 
 import loading from '../../Assets/loading';
+import loadingWhite from '../../Assets/loadingWhite';
 
 import { Container, InfoLine, InsideContainer, ModalContainer, DeleteGroupImg, DeleteGroupMessage, DeleteButton, CancelDelete, DeleteGroupBottom, AddUserText, DeleteGroupBody, DeleteGroupHeader, DeleteGroupModal, AddUserCancelar, AddUserImg, AddUserConfirm, AddUserBottom, AddUserBody, AddUserModal, UserCount, VerificarButton, BotImg, Line, DeleteGroup, DeleteGroupContainer, BotStatusTitle, BotStatusText, BotTexts, BotHeader, BotContainer, AtividadesListText, AtividadeDescription, AtividadesImg, NotVerifiedBottom, AtividadesHeader, AtividadeList, UltimasAtividades, RightContainer, GroupName, ErrorMsgVerified, NotVerifiedHeader, NotVerifiedImg, NotVerifiedBody, GroupNotVerified, TextsContainer, AddUserButton, UserSearch, UserList, GroupVerified, GroupVoltar, GroupVoltarHidden, PageWidth, AllContainer, Group, ImgGroup } from './styles';
 
@@ -34,7 +35,8 @@ const GroupPage: React.FC = () => {
 
   const [isInfoOn, setIsInfoOn] = useState(true)
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingAdd, setIsLoadingAdd] = useState(false)
 
   const defaultOptions = {
     loop: true,
@@ -43,8 +45,27 @@ const GroupPage: React.FC = () => {
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
-
   };
+
+  const defaultOptionsWhite = {
+    loop: true,
+    autoplay: true,
+    animationData: loadingWhite,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)
+  }, [])
+
+  const handleAddUser = () => {
+    // requisicao API > 
+    setIsLoadingAdd(true)
+  }
 
   return (
     <Container>
@@ -109,8 +130,12 @@ const GroupPage: React.FC = () => {
           // }}
           >
 
+            {isLoading && (
+              <div>
+              </div>
+            )}
             {/** LEFT CONTAINER */}
-            {isGroupVerified && (
+            {!isLoading && isGroupVerified && (
               <GroupVerified>
 
                 <InfoLine
@@ -185,7 +210,7 @@ const GroupPage: React.FC = () => {
 
             )}
 
-            {!isGroupVerified && (
+            {!isLoading && !isGroupVerified && (
               <GroupNotVerified>
                 {/** HEADER */}
                 <NotVerifiedHeader>
@@ -425,63 +450,84 @@ const GroupPage: React.FC = () => {
               <AddUserCancelar
                 onClick={() => {
                   setAddUser(false)
+                  setIsLoadingAdd(false)
                 }}
               >
                 Cancelar
               </AddUserCancelar>
 
-              <AddUserConfirm>
-                Adicionar
+              <AddUserConfirm
+                theme={{ disabled: isLoadingAdd }}
+                onClick={
+                  isLoadingAdd
+                    ? () => { }
+                    : handleAddUser
+                }
+              >
+                {isLoadingAdd && (
+                  <Lottie
+                    options={defaultOptionsWhite}
+                    height={16}
+                    width={28}
+                    isClickToPauseDisabled={true}
+                  />
+                )}
+                {!isLoadingAdd && (
+                  <text>Adicionar</text>
+                )}
               </AddUserConfirm>
             </AddUserBottom>
 
           </AddUserModal>
 
         </ModalContainer>
-      )}
+      )
+      }
 
-      {deleteGroup && (
-        <ModalContainer>
-          <DeleteGroupModal>
-            {/** HEADER  */}
-            <DeleteGroupHeader>Deletar grupo</DeleteGroupHeader>
+      {
+        deleteGroup && (
+          <ModalContainer>
+            <DeleteGroupModal>
+              {/** HEADER  */}
+              <DeleteGroupHeader>Deletar grupo</DeleteGroupHeader>
 
 
-            {/** BODY */}
+              {/** BODY */}
 
-            <DeleteGroupBody>
-              <DeleteGroupImg
-                alt={''}
-                src={forbidden}
-                onDragStart={(e) => {
-                  e.preventDefault()
-                }}
-              />
-              Essa ação não pode ser desfeita, ao deletar o grupo, ele não poderá mais ser recuperado
-            </DeleteGroupBody>
+              <DeleteGroupBody>
+                <DeleteGroupImg
+                  alt={''}
+                  src={forbidden}
+                  onDragStart={(e) => {
+                    e.preventDefault()
+                  }}
+                />
+                Essa ação não pode ser desfeita, ao deletar o grupo, ele não poderá mais ser recuperado
+              </DeleteGroupBody>
 
-            {/**BOTTOM */}
+              {/**BOTTOM */}
 
-            <DeleteGroupMessage>Deseja deletar o grupo?</DeleteGroupMessage>
-            <DeleteGroupBottom>
-              <DeleteButton>
-                Deletar grupo
-              </DeleteButton>
+              <DeleteGroupMessage>Deseja deletar o grupo?</DeleteGroupMessage>
+              <DeleteGroupBottom>
+                <DeleteButton>
+                  Deletar grupo
+                </DeleteButton>
 
-              <CancelDelete
-                onClick={() => {
-                  setDeleteGroup(false)
-                }}
-              >
-                Não
-              </CancelDelete>
-            </DeleteGroupBottom>
+                <CancelDelete
+                  onClick={() => {
+                    setDeleteGroup(false)
+                  }}
+                >
+                  Não
+                </CancelDelete>
+              </DeleteGroupBottom>
 
-          </DeleteGroupModal>
+            </DeleteGroupModal>
 
-        </ModalContainer>
-      )}
-    </Container>
+          </ModalContainer>
+        )
+      }
+    </Container >
   );
 }
 

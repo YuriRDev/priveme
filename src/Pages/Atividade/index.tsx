@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import COLOR from '../../colors';
 
 import Navbar from '../../Components/Navbar';
@@ -27,7 +27,7 @@ const Atividade: React.FC = () => {
   };
 
   const [faturaOption, setFaturaOption] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const formatter = (value: any) => `R$ ${value}`;
   const data = [
     {
@@ -52,6 +52,12 @@ const Atividade: React.FC = () => {
       valor: 26,
     },
   ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)
+  }, [])
 
   return (
     <Container>

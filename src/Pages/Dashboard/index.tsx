@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import COLOR from '../../colors';
 
 import Navbar from '../../Components/Navbar';
 import Options from '../../Components/Options';
 import { Select, MenuItem, createTheme, ThemeProvider } from '@material-ui/core';
+
+import Lottie from 'react-lottie'
 
 import { BiPlusCircle, BiSearch, BiMessageAltDetail, BiMoney } from 'react-icons/bi'
 import Input from '../../Components/Input';
@@ -12,11 +14,22 @@ import Group from '../../Components/Group';
 import Graphic from '../../Assets/Graphic.png'
 import warning from '../../Assets/warning.png'
 import Folder from '../../Assets/Folder.png'
+import loading from '../../Assets/loading';
 
 import { Container, InsideContainer, GraphicImg, Cancelar, FolderImg, BodyContainer, Criar, Bottom, ImgBottom, ModalTitle, BodyBottom, BottomTop, CobrancaContainer, CobrancaText, CaracteresRestantes, Body, Modal, CreateGroupContainer, CreateGroup, ModalOut, GroupList, SearchGroup } from './styles';
 
 const Dashboard: React.FC = () => {
   const [newGroup, setNewGroup] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loading,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   const theme = createTheme({
     palette: {
@@ -32,6 +45,12 @@ const Dashboard: React.FC = () => {
     }
   })
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)
+  }, [])
+
   return (
     <Container>
       <Navbar />
@@ -40,52 +59,73 @@ const Dashboard: React.FC = () => {
         <Options />
         <BodyContainer>
           {/** CONTAINER */}
-          <Body>
-            {/** CRIAR GRUPO BUTTON */}
-
-            <CreateGroupContainer>
-              <CreateGroup
-                onClick={() => {
-                  setNewGroup(true)
-                }}
-              >
-                <BiPlusCircle size={20}
-                  style={{
-                    marginRight: 6,
-                    cursor: 'pointer'
-                  }}
-                />
-                Criar grupo
-              </CreateGroup>
-            </CreateGroupContainer>
-
-            {/** PROCURAR GRUPO INPUT */}
-            <SearchGroup>
-              <Input
-                placeholder={'Pesquisar nome do grupo...'}
-                height={60}
-              >
-                <BiSearch size={20} />
-              </Input>
-            </SearchGroup>
-            {/** LISTA DE GRUPO LIST! */}
-
-            <GroupList>
-              <Group
-                app={1}
-                name={'Nome grupo telegram'}
-                people={142}
-                toUrl={'id1'}
-                />
-
-              <Group
-                app={2}
-                name={'Nome grupo zapzap kkkkk'}
-                people={142}
-                toUrl={'id2'}
+          {isLoading && (
+            <div
+              style={{
+                opacity: .5
+              }}
+            >
+              <Lottie
+                options={defaultOptions}
+                height={100}
+                width={100}
+                isClickToPauseDisabled={true}
               />
-            </GroupList>
-          </Body>
+              <text
+                style={{
+                  fontWeight: 400
+                }}
+              >Carregando</text>
+            </div>
+          )}
+          {!isLoading && (
+            <Body>
+              {/** CRIAR GRUPO BUTTON */}
+
+              <CreateGroupContainer>
+                <CreateGroup
+                  onClick={() => {
+                    setNewGroup(true)
+                  }}
+                >
+                  <BiPlusCircle size={20}
+                    style={{
+                      marginRight: 6,
+                      cursor: 'pointer'
+                    }}
+                  />
+                  Criar grupo
+                </CreateGroup>
+              </CreateGroupContainer>
+
+              {/** PROCURAR GRUPO INPUT */}
+              <SearchGroup>
+                <Input
+                  placeholder={'Pesquisar nome do grupo...'}
+                  height={60}
+                >
+                  <BiSearch size={20} />
+                </Input>
+              </SearchGroup>
+              {/** LISTA DE GRUPO LIST! */}
+
+              <GroupList>
+                <Group
+                  app={1}
+                  name={'Nome grupo telegram'}
+                  people={142}
+                  toUrl={'id1'}
+                />
+
+                <Group
+                  app={2}
+                  name={'Nome grupo zapzap kkkkk'}
+                  people={142}
+                  toUrl={'id2'}
+                />
+              </GroupList>
+            </Body>
+          )}
         </BodyContainer>
       </InsideContainer>
 

@@ -58,15 +58,21 @@ const Navbar: React.FC = () => {
                             </UserIcon>
                             Nome da pessoa
                         </NameContainer>
-
-                        <HeaderOption
+                        <Link
+                            to={'/atividade'}
                             style={{
-                                marginBottom: -12
+                                textDecoration: 'none',
                             }}
                         >
-                            <BiEqualizer style={{ marginRight: 8 }} size={22} />
-                            ATIVIDADE
-                        </HeaderOption>
+                            <HeaderOption
+                                style={{
+                                    marginBottom: -12
+                                }}
+                            >
+                                <BiEqualizer style={{ marginRight: 8 }} size={22} />
+                                ATIVIDADE
+                            </HeaderOption>
+                        </Link>
 
                         <Link
                             to={'/'}

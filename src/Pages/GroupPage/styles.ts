@@ -185,6 +185,16 @@ export const AddUserButton = styled.div`
     justify-content: center;
     cursor: pointer;
     font-size: 14px;
+    transition: .2s;
+
+    &:hover {
+        box-shadow: 0px 4px 4px rgba(0, 0, 1, 0.3);
+        opacity: .9;
+    }
+
+    &:active {
+        opacity: .8;
+    }
 `
 
 export const UserSearch = styled.div`
@@ -489,6 +499,32 @@ export const AddUserConfirm = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 3px;
     cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+        box-shadow: 0px 4px 4px rgba(0, 0, 1, 0.3);
+        opacity: .9;
+    }
+
+    &:active {
+        opacity: .8;
+    }
+
+    ${props => props.theme.disabled && (
+        `
+        background-color: ${COLOR.Inactive};
+
+        &:hover {
+            opacity: 1;
+        }
+    
+        &:active {
+            opacity: 1;
+        }    
+        cursor: default;
+        `
+    )}
+
 `
 
 export const DeleteGroupModal = styled.div`

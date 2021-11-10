@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import COLOR from '../../colors';
 
 import Navbar from '../../Components/Navbar';
@@ -11,7 +11,27 @@ import { Container, FaturasList, InsideContainer, Retirar, BodyContainer, Fatura
 import Fatura from '../../Components/Fatura';
 import Pagamento from '../../Components/Pagamento';
 
+import loading from '../../Assets/loading';
+
+import Lottie from 'react-lottie';
+
 const Withdrawn: React.FC = () => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loading,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+
+  };
+
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)
+  }, [])
 
   return (
     <Container>
@@ -33,15 +53,32 @@ const Withdrawn: React.FC = () => {
                   fontSize: 14
                 }}
               >Valor Disponível</text>
-              <text
-                style={{
-                  fontSize: 20,
-                  fontWeight: 500
-                }}
-              >R$ 0,00</text>
+              {isLoading && (
+                <div
+                  style={{
+                    marginLeft: -8,
+                    opacity: .5
+                  }}
+                >
+                  <Lottie
+                    options={defaultOptions}
+                    height={60}
+                    width={60}
+                    isClickToPauseDisabled={true}
+                  />
+                </div>
+              )}
+              {!isLoading && (
+                <text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 500
+                  }}
+                >R$ 0,00</text>
+              )}
             </GraphicData>
 
-            {/** grafico */}
+
             <div
               style={{
                 display: 'flex',
@@ -49,9 +86,11 @@ const Withdrawn: React.FC = () => {
                 justifyContent: 'flex-start'
               }}
             >
-              <Retirar>
-                Retirar
-              </Retirar>
+              {!isLoading && (
+                <Retirar>
+                  Retirar
+                </Retirar>
+              )}
             </div>
 
           </GraphicContainer>
@@ -70,12 +109,37 @@ const Withdrawn: React.FC = () => {
 
 
             {/** LISTA DE FATURA */}
-            <FaturasList>
-              <Pagamento />
-              <Pagamento />
-              <Pagamento />
-              <Pagamento />
-            </FaturasList>
+            {!isLoading && (
+              <FaturasList>
+                <Pagamento />
+                <Pagamento />
+                <Pagamento />
+                <Pagamento />
+              </FaturasList>
+            )}
+            {isLoading && (
+              <FaturasList
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  padding: '0px'
+                }}
+              >
+                <div
+                  style={{
+                    marginLeft: -8,
+                    opacity: .5
+                  }}
+                >
+                  <Lottie
+                    options={defaultOptions}
+                    height={60}
+                    width={60}
+                    isClickToPauseDisabled={true}
+                  />
+                </div>
+              </FaturasList>
+            )}
 
 
           </FaturaContainer>
@@ -83,7 +147,7 @@ const Withdrawn: React.FC = () => {
         </BodyContainer>
       </InsideContainer>
 
-    </Container>
+    </Container >
   );
 }
 
